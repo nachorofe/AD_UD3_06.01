@@ -12,25 +12,25 @@ public class EquipoDeserializer implements JsonDeserializer<List<Equipo>> {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         JsonArray equipoArray = jsonObject.getAsJsonArray("Equipo");
         List<Equipo> equipos = new ArrayList<>();
-        for (JsonElement element : equipoArray){
+        for (JsonElement element : equipoArray) {
             JsonObject equipoObject = element.getAsJsonObject();
             Equipo equipo = new Equipo();
             equipo.setIdEquipo(equipoObject.get("idEquipo").getAsLong());
             equipo.setNombre(equipoObject.get("nombre").getAsString());
             equipo.setCiudad(equipoObject.get("ciudad").getAsString());
 
-            String conferenciaStr = jsonObject.get("conferencia").getAsString();
+            // Accede al valor de conferencia dentro de equipoObject
+            String conferenciaStr = equipoObject.get("conferencia").getAsString();
             Conferencia conferencia = null;
-            if (conferenciaStr.equals("EAST")){
+            if (conferenciaStr.equals("EAST")) {
                 conferencia = Conferencia.ESTE;
-            } else if (conferenciaStr.equals("WEST")){
+            } else if (conferenciaStr.equals("WEST")) {
                 conferencia = Conferencia.OESTE;
             }
             equipo.setConferencia(conferencia);
 
-            String divisionStr = jsonObject.get("division").getAsString();
+            equipo.setDivision(Division.fromDivision(equipoObject.get("division").getAsString()));
 
-            equipo.setDivision(Division.valueOf(equipoObject.get("division").getAsString()));
             equipo.setNombreCompleto(equipoObject.get("nombreCompleto").getAsString());
             equipo.setAbreviatura(equipoObject.get("abreviatura").getAsString());
             equipos.add(equipo);

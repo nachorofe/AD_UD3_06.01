@@ -8,7 +8,7 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:sqlite:C:\Users\a23ignaciorf\Documents\AD\Proyectos\jokeapkjpa2\src\main\resources\equipo.sqlite3"/>
+                      value="jdbc:sqlite:file:src/main/resources/equipo.sqlite3"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
             <property name="jakarta.persistence.jdbc.user" value=""/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
@@ -21,6 +21,9 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.highlight_sql" value="true"/>
             <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
+
+            <!-- Configuración de foreign keys -->
+            <property name="hibernate.jdbc.foreign_keys" value="true"/>
 
         </properties>
     </persistence-unit>

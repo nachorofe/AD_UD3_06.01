@@ -1,13 +1,23 @@
 package org.dam;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Equipo {
+    @Id
     private Long idEquipo;
     private String nombre;
     private String ciudad;
+    @Enumerated(EnumType.STRING)
     private Conferencia conferencia;
+    @Enumerated(EnumType.STRING)
     private Division division;
     private String nombreCompleto;
     private String abreviatura;
+    @OneToOne
+    @JoinColumn(name="idEntrenador")
+    private Entrenador entrenador;
+
 
     public Equipo() {
     }

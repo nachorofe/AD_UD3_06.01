@@ -23,7 +23,11 @@ public enum Division {
     }
 
     public static Division fromDivision(String nombre){
-
+        // Obtener tipo División a partir de su nombre
+        for (Division d : Division.values()){
+            if (nombre.equals(d.getNombre())) { return d; }
+        }
+        throw new IllegalArgumentException("No se encontró ninguna división con el nombre " + nombre);
     }
 
 }
