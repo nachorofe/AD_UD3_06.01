@@ -21,4 +21,9 @@ public enum Division {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public static Division fromDivision(String nombre){
+
+    }
+
 }

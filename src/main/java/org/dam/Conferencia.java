@@ -18,4 +18,14 @@ public enum Conferencia {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public static Conferencia fromNombre(String nombre){
+        for (Conferencia c : values()){
+            if (c.nombre.equalsIgnoreCase(nombre)){
+                return c;
+            }
+        }
+        throw new IllegalArgumentException("No se encontró una conferencia con el nombre " + nombre);
+    }
+
 }
