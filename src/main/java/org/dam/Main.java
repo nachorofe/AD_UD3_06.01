@@ -22,6 +22,7 @@ public class Main {
             for (Equipo e : equipos){
                 System.out.println(e);
             }
+
         } catch (IOException e){
             e.printStackTrace();
         }
