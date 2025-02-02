@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
-             version="3.0">
-    <persistence-unit name="equipo" transaction-type="RESOURCE_LOCAL">
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="equipos" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:sqlite:file:src/main/resources/equipo.sqlite3"/>
-            <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
-            <property name="jakarta.persistence.jdbc.user" value=""/>
-            <property name="jakarta.persistence.jdbc.password" value=""/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="jakarta.persistence.jdbc.url"    value="jdbc:h2:.\equiposh2;DATABASE_TO_UPPER=FALSE" />
+            <property name="jakarta.persistence.jdbc.user"   value="" />
+            <property name="jakarta.persistence.jdbc.password" value="" />
+            <!-- Acordarse de poner none en Value para que no elimine la base de datos -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="none" />
 
-            <!-- Configuración del esquema de la base de datos -->
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
-
-            <!-- Configuración de Hibernate -->
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.highlight_sql" value="true"/>
-            <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
-
-            <!-- Configuración de foreign keys -->
-            <property name="hibernate.jdbc.foreign_keys" value="true"/>
-
+            <property name="hibernate.dialect"    value="org.hibernate.dialect.H2Dialect" />
+            <property name="hibernate.show_sql"   value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.highlight_sql" value="true" />
         </properties>
     </persistence-unit>
 </persistence>

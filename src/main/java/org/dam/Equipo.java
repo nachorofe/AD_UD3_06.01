@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Equipo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEquipo;
     private String nombre;
     private String ciudad;
@@ -14,6 +15,7 @@ public class Equipo {
     private Division division;
     private String nombreCompleto;
     private String abreviatura;
+
     @OneToOne
     @JoinColumn(name="idEntrenador")
     private Entrenador entrenador;
@@ -22,8 +24,7 @@ public class Equipo {
     public Equipo() {
     }
 
-    public Equipo(Long idEquipo, String nombre, String ciudad, Conferencia conferencia, Division division, String nombreCompleto, String abreviatura) {
-        this.idEquipo = idEquipo;
+    public Equipo(String nombre, String ciudad, Conferencia conferencia, Division division, String nombreCompleto, String abreviatura) {
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.conferencia = conferencia;
@@ -86,6 +87,14 @@ public class Equipo {
 
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
+    }
+
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
     }
 
     @Override
