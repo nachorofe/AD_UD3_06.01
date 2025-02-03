@@ -69,4 +69,16 @@ public class Entrenador implements Serializable {
     public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Entrenador{");
+        sb.append("idEntrenador=").append(idEntrenador);
+        sb.append(", nombre='").append(nombre).append('\'');
+        sb.append(", fechaNacimiento=").append(fechaNacimiento);
+        sb.append(", salario=").append(salario);
+        sb.append(", equipo=").append(equipo);
+        sb.append('}');
+        return sb.toString();
+    }
 }

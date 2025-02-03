@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,13 +77,100 @@ public class Main {
         }
     }
 
+    public static void crearBDD(){
+        System.out.println("Creando bdd vacía");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("equipos");
+        EntityManager em = emf.createEntityManager();
+        System.out.println("bdd creada exitosamente");
+        em.close();
+        emf.close();
+    }
+
+    public static void anadirEntrenador(){
+        System.out.println("AÑADIR ENTRENADOR");
+        Entrenador entrenador = new Entrenador();
+        System.out.print("Introduce nombre: ");
+        try {
+            entrenador.setNombre(br.readLine());
+            System.out.print("Introduce fecha de nacimiento (dd/mm/aaaa): ");
+            try {
+                entrenador.setFechaNacimiento(new SimpleDateFormat("dd/MM/yyyy").parse(br.readLine()));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.print("Introduce salario: ");
+            entrenador.setSalario(Double.parseDouble(br.readLine()));
+        } catch (IOException e){
+            System.out.println("Error IO" + e.getMessage());
+        }
+
+        EntrenadorDAO entrenadorDAO = new EntrenadorDAO();
+        if (entrenadorDAO.anadirEntrenador(entrenador)){
+            System.out.println("Entrenador agregado correctamente");
+        } else {
+            System.out.println("Error al agregar entrenador");
+        }
+
+    }
+
+    /**
+     * Pide al usuario el id del entrenador a asignar al equipo
+     * Pide al usuario el id del equipo a asignar ese entrenador
+     *
+     */
+    public static void asignarEntrenadorAEquipo(){
+        System.out.println("ASIGNAR ENTRENADOR A EQUIPO");
+        try {
+            System.out.print("Introduce id del entrenador: ");
+            Long idEntrenador = Long.parseLong(br.readLine());
+            System.out.print("Introduce id del equipo: ");
+            Long idEquipo = Long.parseLong(br.readLine());
+            // Obtener objeto entrenador a partir de su id.
+            EntrenadorDAO entrenadorDAO = new EntrenadorDAO();
+            Entrenador entrenador = entrenadorDAO.obtenerEntrenador(idEntrenador);
+            EquipoDAO equipoDAO = new EquipoDAO();
+            if (equipoDAO.asignarEntrenador(entrenador,idEquipo)) {
+                System.out.println("Entrenador asignado a equipo " + idEquipo);
+            } else {
+                System.out.println("Error en la asignación de entrenador");
+            }
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void asignarEquipoAEntrenador() {
+        System.out.println("Pendiente de implementar");
+    }
+
+    /**
+     * Muestra datos de un equipo y de su entrenador
+     */
+    public static void mostrarEquipo(){
+        System.out.print("Introduce id de equipo: ");
+        try {
+            Long idEquipo = Long.parseLong(br.readLine());
+            EquipoDAO equipoDAO = new EquipoDAO();
+            equipoDAO.mostrarEquipoYEntrenador(idEquipo);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String opcion;
         do {
             System.out.println("GESTIÓN DE EQUIPOS DE BALONCESTO");
+            System.out.println("0 - Crear base de datos");
             System.out.println("1 - Añadir un equipo");
-            System.out.println("2 - Prueba manual");
+            System.out.println("2 - Test añadir equipo");
+            System.out.println("3 - Añadir entrenador");
+            System.out.println("4 - Asignar entrenador a equipo");
+            System.out.println("5 - Asignar equipo a entrenador");
+            System.out.println("6 - Mostrar equipo");
             System.out.println("S - Salir");
 
             try {
@@ -91,9 +180,17 @@ public class Main {
             }
 
             switch (opcion){
+                case "0" -> { crearBDD(); }
                 case "1" -> { anadirEquipo(); }
                 case "2" -> { pruebaAnadirEquipo(); }
+                case "3" -> { anadirEntrenador(); }
+                case "4" -> { asignarEntrenadorAEquipo(); }
+                case "5" -> { asignarEquipoAEntrenador(); }
+                case "6" -> { mostrarEquipo(); }
                 case "s","S" -> { System.out.println("Saliendo del programa"); }
+                default -> {
+                    System.out.println("Introduce una opción correcta");
+                }
             }
         } while (!opcion.equalsIgnoreCase("s"));
 
@@ -123,13 +220,6 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-//        Código para crear la base de datos
-//        System.out.println("Creando bdd vacía");
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("equipos");
-//        EntityManager em = emf.createEntityManager();
-//        System.out.println("bdd creada exitosamente");
-//        em.close();
-//        emf.close();
 
 
 

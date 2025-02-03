@@ -15,6 +15,14 @@ public class EntrenadorDAO {
         return true;
     }
 
+    public Entrenador obtenerEntrenador(Long idEntrenador){
+        em = JpaNbaManager.getEntityManager();
+        em.getTransaction().begin();
+        Entrenador entrenador = em.find(Entrenador.class,idEntrenador);
+        em.getTransaction().commit();
+        return entrenador;
+    }
+
 
 
 }
