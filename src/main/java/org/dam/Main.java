@@ -142,6 +142,25 @@ public class Main {
 
     public static void asignarEquipoAEntrenador() {
         System.out.println("Pendiente de implementar");
+        // SE crea un equipo
+
+//        Equipo a = new Equipo()
+//
+//        Equipo oKc = em.find(Equipo.class,21L);
+//
+//        Entrenador entrenador = new Entrenador(...);
+//                entrenador.setIdEntrenador(null);
+//                var txxt = em.getTransaction();
+//                txt.begin();
+//                em.persist(entrenador);
+//                txt.commit();
+
+
+        // Se persiste para encontrarlo con find
+        // Si tengo identity, primero se crea el entrenador sin id y después hay que poner setIdEntrenador(null)
+
+
+
     }
 
     /**
